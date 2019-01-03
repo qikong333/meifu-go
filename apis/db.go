@@ -12,7 +12,7 @@ var db *gorm.DB
 
 
 func init() {
-	var dbSrc = "root:123456@tcp(127.0.0.1:3306)/meifu?parseTime=true"
+	var dbSrc = "root:123456@tcp(127.0.0.1:3306)/test?parseTime=true"
 	newDb, err := gorm.Open("mysql", dbSrc)
 	if err != nil {
 		log.Fatalln(err)
