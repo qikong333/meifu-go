@@ -3,10 +3,9 @@ package apis
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"	// 配置mysql时需要单独引入
+	_ "github.com/go-sql-driver/mysql" // 配置mysql时需要单独引入
 	"meifu/pkg/e"
 	"net/http"
-	"meifu/upload"
 )
 
 func GetBanner(c *gin.Context)  {
@@ -28,46 +27,19 @@ func GetBanner(c *gin.Context)  {
 
 func AddBanner(c *gin.Context)  {
 	code := e.SUCCESS
-	//data := make(map[string]string)
 	var banner Banner
 
 	banner.Name  = c.PostForm("name")
-	file, image, err := c.Request.FormFile("image")
-	if err != nil {
-		//logging.Warn(err)
+	banner.Name  = c.PostForm("image")
+
+	if err := db.Create(&banner).Error; err != nil {
 		code = e.ERROR
-		c.JSON(http.StatusOK, gin.H{
-			"code": code,
-			"msg":  e.GetMsg(code),
-			"data": banner,
+		c.AbortWithStatus(404)
+		fmt.Println(err)
+		c.JSON(code, gin.H{
+			"msg":"添加失败",
+			"data":banner,
 		})
-	}
-
-	if image == nil {
-		code = e.INVALID_PARAMS
-	} else {
-		imageName := upload.GetImageName(image.Filename)
-		fullPath := upload.GetImageFullPath()
-		//savePath := upload.GetImagePath()
-
-		src := fullPath + imageName
-		fmt.Println("图片名称："+imageName)
-		fmt.Println("路径："+src)
-		if ! upload.CheckImageExt(imageName) || ! upload.CheckImageSize(file) { // 检查后缀和大小
-			code = e.ERROR_UPLOAD_CHECK_IMAGE_FORMAT
-		} else {
-			err := upload.CheckImage(fullPath)	//	检查图片
-			if err != nil {
-				//logging.Warn(err)
-				code = e.ERROR_UPLOAD_CHECK_IMAGE_FAIL
-			} else if err := c.SaveUploadedFile(image, src); err != nil {
-				fmt.Println(err)
-				code = e.ERROR_UPLOAD_SAVE_IMAGE_FAIL
-			} else {
-				banner.Image = upload.GetImageFullUrl(imageName)
-				//data["image_save_url"] = savePath + imageName
-			}
-		}
 	}
 
 	c.JSON(http.StatusOK, gin.H{

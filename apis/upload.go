@@ -31,7 +31,7 @@ func UploadImage(c *gin.Context) {
 
 		src := fullPath + imageName
 
-		if ! upload.CheckImageExt(imageName) || ! upload.CheckImageSize(file) {
+		if ! upload.CheckImageExt(imageName) || ! upload.CheckImageSize(file) { // 检查后缀和大小
 			code = e.ERROR_UPLOAD_CHECK_IMAGE_FORMAT
 		} else {
 			err := upload.CheckImage(fullPath)
