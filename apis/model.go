@@ -1,9 +1,13 @@
 package apis
 
+import "time"
+
 type Banner struct {
 	Id int `json:"id",`
 	Name string `json:"name"`
 	Image string `json:"image"`
+	Time time.Time `json:"time"`
+
 }
 
 type New struct {
@@ -21,4 +25,6 @@ type Product struct {
 	Img string `json:"img"`
 	Info string `json:"info"`
 	Content string `json:"content"`
+	Time string `json:"time"`
+
 } 

@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // 配置mysql时需要单独引入
 	"meifu/pkg/e"
 	"net/http"
+	"time"
 )
 
 func GetBanner(c *gin.Context)  {
@@ -28,9 +29,9 @@ func GetBanner(c *gin.Context)  {
 func AddBanner(c *gin.Context)  {
 	code := e.SUCCESS
 	var banner Banner
-
 	banner.Name  = c.PostForm("name")
-	banner.Name  = c.PostForm("image")
+	banner.Image  = c.PostForm("image")
+	banner.Time = time.Now()
 
 	if err := db.Create(&banner).Error; err != nil {
 		code = e.ERROR
