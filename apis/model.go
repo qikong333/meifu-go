@@ -13,7 +13,7 @@ type Banner struct {
 type New struct {
 	Id int `json:"id"`
 	Title string `json:"title"`
-	Time string `json:"time"`
+	Time time.Time `json:"time"`
 	Content string `json:"content"`
 	Author string `json:"author"`
 	Source string `json:"source"`
@@ -25,6 +25,7 @@ type Product struct {
 	Img string `json:"img"`
 	Info string `json:"info"`
 	Content string `json:"content"`
-	Time string `json:"time"`
+	Time time.Time `json:"time"`
+	Author string `json:"author"`
 
 } 

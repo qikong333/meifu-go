@@ -3,6 +3,7 @@ package apis
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func GetNew(c *gin.Context)  {
@@ -29,7 +30,7 @@ func AddNew(c *gin.Context)  {
 	new.Author =c.PostForm("author")
 	new.Content = c.PostForm("content")
 	new.Source = c.PostForm("source")
-	new.Time = c.PostForm("time")
+	new.Time = time.Now()
 
 	if err := db.Create(&new).Error; err != nil {
 		c.AbortWithStatus(404)

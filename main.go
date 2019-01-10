@@ -26,9 +26,9 @@ func main() {
 	r.GET("/bannerDelete",apis.DeleteBanner)
 
 	////	news操作
-	//r.GET("/newGet",apis.GetNew)
-	//r.POST("/newAdd",apis.AddNew)
-	//r.GET("/newDelete",apis.DeleteNew)
+	r.GET("/newGet",apis.GetNew)
+	r.POST("/newAdd",apis.AddNew)
+	r.GET("/newDelete",apis.DeleteNew)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 

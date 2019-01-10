@@ -3,6 +3,7 @@ package apis
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func GetProduct(c *gin.Context)  {
@@ -29,6 +30,9 @@ func AddProduc(c *gin.Context)  {
 	product.Name = c.PostForm("name")
 	product.Img = c.PostForm("img")
 	product.Info = c.PostForm("info")
+	product.Time = time.Now()
+	product.Author =c.PostForm("author")
+
 
 
 	if err := db.Create(&product).Error; err != nil {
