@@ -30,6 +30,11 @@ func main() {
 	r.POST("/newAdd",apis.AddNew)
 	r.GET("/newDelete",apis.DeleteNew)
 
+	////	producs操作
+	r.GET("/producGet",apis.GetProduct)
+	r.POST("/producAdd",apis.AddProduc)
+	r.GET("/producDelete",apis.DeleteProduct)
+
 	r.Run() // listen and serve on 0.0.0.0:8080
 
 
