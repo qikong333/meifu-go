@@ -45,6 +45,7 @@ func AddProduc(c *gin.Context)  {
 	}
 
 	c.JSON(200, gin.H{
+		"code":"200",
 		"msg":"添加成功",
 		"data":product,
 	})

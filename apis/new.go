@@ -36,12 +36,14 @@ func AddNew(c *gin.Context)  {
 		c.AbortWithStatus(404)
 		fmt.Println(err)
 		c.JSON(404, gin.H{
+
 			"msg":"添加失败",
 			"data":new,
 		})
 	}
 
 	c.JSON(200, gin.H{
+		"code":"200",
 		"msg":"添加成功",
 		"data":new,
 	})
