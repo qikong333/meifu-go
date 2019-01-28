@@ -3,7 +3,7 @@ package apis
 import "time"
 
 type Banner struct {
-	Id int `json:"id",`
+	Id string `json:"id",`
 	Name string `json:"name"`
 	Image string `json:"image"`
 	Time time.Time `json:"time"`
@@ -11,7 +11,7 @@ type Banner struct {
 }
 
 type New struct {
-	Id int `json:"id"`
+	Id string `json:"id"`
 	Title string `json:"title"`
 	Time time.Time `json:"time"`
 	Content string `json:"content"`
@@ -20,7 +20,7 @@ type New struct {
 }
 
 type Product struct {
-	Id int `json:"id"`
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Img string `json:"img"`
 	Info string `json:"info"`
