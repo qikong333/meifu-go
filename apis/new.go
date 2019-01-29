@@ -9,8 +9,6 @@ import (
 func GetNew(c *gin.Context)  {
 
 	id := c.Query("id")
-	fmt.Printf("输出id %d\n",id)
-	fmt.Println(id)
 	var new []New
 	if len(id) != 0 {
 		if err :=db.Where("id = ?", id).First(&new).Error; err != nil {

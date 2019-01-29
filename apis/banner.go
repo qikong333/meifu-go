@@ -10,16 +10,23 @@ import (
 )
 
 func GetBanner(c *gin.Context)  {
-
+	id := c.Query("id")
 	var banner []Banner	// 变量名的定义要和数据表名相同
-
-	if err :=db.Find(&banner).Error; err != nil {	 //  SELECT * FROM users;
-		c.AbortWithStatus(404)
-		fmt.Println(err)
+	if len(id) != 0 {
+		if err :=db.Where("id = ?", id).First(&banner).Error; err != nil {
+			c.AbortWithStatus(404)
+			fmt.Println(err)
+		}
+	}else{
+		if err :=db.Find(&banner).Error; err != nil {	 //  SELECT * FROM users;
+			c.AbortWithStatus(404)
+			fmt.Println(err)
+		}
 	}
+ 
 
 	c.IndentedJSON(200, gin.H{
-		"code":"200",
+		"code":200,
 		"msg":"查询成功",
 		"data":banner,
 	})
@@ -29,19 +36,33 @@ func GetBanner(c *gin.Context)  {
 func AddBanner(c *gin.Context)  {
 	code := e.SUCCESS
 	var banner Banner
+	banner.Id = c.PostForm("id")
 	banner.Name  = c.PostForm("name")
 	banner.Image  = c.PostForm("image")
 	banner.Time = time.Now()
 
-	if err := db.Create(&banner).Error; err != nil {
-		code = e.ERROR
-		c.AbortWithStatus(404)
-		fmt.Println(err)
-		c.JSON(code, gin.H{
-			"msg":"添加失败",
-			"data":banner,
-		})
+	if len(banner.Id) != 0 {
+		if err := db.Model(&banner).Where("id = ?", banner.Id).Save(&banner).Error; err != nil {
+			c.AbortWithStatus(404)
+			fmt.Println(err)
+			c.JSON(404, gin.H{
+				"msg":"添加失败",
+				"data":banner,
+			})
+		}
+	}else{
+		if err := db.Create(&banner).Error; err != nil {
+			code = e.ERROR
+			c.AbortWithStatus(404)
+			fmt.Println(err)
+			c.JSON(code, gin.H{
+				"msg":"添加失败",
+				"data":banner,
+			})
+		}
 	}
+
+
 
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
@@ -62,6 +83,7 @@ func DeleteBanner(c *gin.Context)  {
 	}
 
 	c.JSON(200, gin.H{
+		"code":200,
 		"msg":"删除成功",
 	})
 
