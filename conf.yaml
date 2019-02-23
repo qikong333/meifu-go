@@ -1,1 +1,1 @@
-path: "231654646"enabled: truedatabase:  addr: asdfadf  port: 3306  username: root  password: 123456listen: 80
+serve:  addr: 47.106.112.237  port: 3306  username: root  password: 123456  sqlname: meifulisten: 80cors: "*"
